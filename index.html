@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOTECH REPORT WHATSAPP SYSTEM</title>
+    <style>
+        /* Set the background image */
+        body {
+            background-image: url('https://images.pexels.com/photos/956999/milky-way-starry-sky-night-sky-star-956999.jpeg?cs=srgb&amp;dl=pexels-felixmittermeier-956999.jpg&amp;fm=jpg'); /* Replace with the path to your laboratory photo */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Center the content box */
+        .content {
+            background-color: rgba(255, 255, 255, 0.85); /* Slightly transparent background */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        /* Heading style */
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        /* Style the input and button */
+        input, button, select {
+            padding: 8px;
+            margin-top: 8px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Style for the LAB SYSTEM button */
+        .lab-system-button {
+            background-color: #2196F3;
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .lab-system-button:hover {
+            background-color: #1e88e5;
+        }
+
+        /* Wrapper for VG selection */
+        .vg-input-wrapper,
+        .date-input-wrapper,
+        .phone-input-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 15px; /* Adds consistent spacing between all input rows */
+        }
+
+        /* Constant prefix styling for phone number */
+        .phone-prefix {
+            background-color: #e0e0e0;
+            padding: 8px;
+            border-radius: 4px 0 0 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .phone-number {
+            border-radius: 0 4px 4px 0;
+            border-left: none;
+            width: 100%;
+        }
+
+        /* Footer style */
+        .footer {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* WhatsApp button */
+        .whatsapp-button {
+            display: flex;
+            align-items: center;
+            background-color: #25D366;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 12px;
+        }
+
+        .whatsapp-button img {
+            width: 15px;
+            height: 15px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <h1>BIOTECH REPORT WHATSAPP SYSTEM</h1>
+
+        <!-- VG selection dropdown and input field for number (labels hidden) -->
+        <div class="vg-input-wrapper">
+            <select id="vgSelection">
+                <option value="VG">VG</option>
+                <option value="BR">BR</option>
+                <option value="NI">NI</option>
+            </select>
+            <input type="text" id="vgNum" placeholder="Enter number (e.g., 1)" maxlength="10">
+        </div>
+        
+        <!-- Date input aligned to the left side -->
+        <div class="date-input-wrapper">
+            <input type="date" id="date">
+        </div>
+        
+        <!-- Phone Number field with hidden label -->
+        <div class="phone-input-wrapper">
+            <div class="phone-prefix">94</div>
+            <input type="text" id="phoneNum" class="phone-number" placeholder="Enter 9-digit phone number" maxlength="9" oninput="validatePhoneNum(this)">
+        </div>
+        
+        <br>
+        <button onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+    </div>
+
+    <!-- LAB SYSTEM button -->
+    <a href="https://amlws.appexsl.com/memberarea" target="_blank" class="lab-system-button">LAB SYSTEM</a>
+
+    <!-- Footer -->
+    <div class="footer">
+        <a href="https://wa.me/94767810623" target="_blank" class="whatsapp-button">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Logo">
+            Chat with Me
+        </a>
+        <span>Developed By Theekshana</span>
+    </div>
+
+    <script>
+        function validatePhoneNum(input) {
+            // Allow only numbers and limit to 9 digits
+            input.value = input.value.replace(/[^0-9]/g, '').slice(0, 9);
+        }
+
+        function cleanVGNum() {
+            // Get VG number input, trim spaces, and return cleaned value
+            const vgNumInput = document.getElementById('vgNum');
+            vgNumInput.value = vgNumInput.value.replace(/\s+/g, ''); // Remove all spaces
+            return vgNumInput.value;
+        }
+
+        async function shareOnWhatsApp() {
+            const vgSelection = document.getElementById('vgSelection').value;
+            const vgNum = cleanVGNum(); // Use cleaned VG number
+            const date = document.getElementById('date').value;
+            const phoneNum = document.getElementById('phoneNum').value;
+
+            if (!vgNum || vgNum.includes(" ") || vgNum.length === 0) {
+                alert("Please enter a valid number without spaces.");
+                return;
+            }
+            if (!date || phoneNum.length !== 9) {
+                alert("Please enter a valid date and a 9-digit phone number.");
+                return;
+            }
+
+            const fullPhoneNum = "94" + phoneNum;
+            const link = `http://amlws.appexsl.com/report/7/${vgSelection}${vgNum}/${date}`;
+            let message = `*Biotech Medical Laboratory Online Report*\n\n \n\n● *Your (${vgSelection}${vgNum}) lab report is ready*.\n\n●Click the link below to view and download the online report.\n\n(ඔබට පහලින් ලින්ක් එකක් දිස් නොවුනහොත් කරුණාකර අපගේ WHATSAPP NUMBER එක සේව් කරගන්න.)\n\n${link}\n\n \n\n𝙁𝙧𝙤𝙢 - 𝘽𝙄𝙊𝙏𝙀𝘾𝙃 𝙇𝘼𝘽𝙊𝙍𝘼𝙏𝙊𝙍𝙔 `;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${fullPhoneNum}?text=${encodedMessage}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                shareOnWhatsApp();
+            }
+        });
+    </script>
+</body>
+</html>
+
